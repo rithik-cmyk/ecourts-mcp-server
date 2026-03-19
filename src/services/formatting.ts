@@ -262,9 +262,9 @@ export function formatOrderAiMarkdown(
   } else {
     lines.push(
       "## AI Analysis",
-      "_AI analysis is not yet available for this order. The order PDF has been included below._",
+      "_Pre-computed AI analysis is not yet available for this order. The raw extracted text is included below \u2014 you can analyze it directly._",
       "",
-      "**Tip:** You can call `ecourts_refresh_case` with this CNR to request a fresh data scrape, then retry after 5\u201310 minutes.",
+      "**Tip:** Call `ecourts_refresh_case` with this CNR to request a fresh data scrape. AI analysis typically becomes available within 5\u201310 minutes.",
       ""
     );
   }

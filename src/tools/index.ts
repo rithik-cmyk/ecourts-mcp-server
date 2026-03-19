@@ -339,43 +339,14 @@ The AI analysis is pre-computed (fast, no LLM latency). If aiAnalysis is null, a
       );
       const d = res.data;
       const md = formatOrderAiMarkdown(d.cnr, d.filename, d.extractedText, d.aiAnalysis);
-
-      const content: Array<
-        | { type: "text"; text: string }
-        | { type: "resource"; resource: { uri: string; mimeType: string; blob: string } }
-      > = [
-        {
-          type: "text",
-          text: truncateIfNeeded(md, "The extracted text was long. Ask for a summary or specific section."),
-        },
-      ];
-
-      // When AI analysis isn't available, also include the PDF
-      if (!d.aiAnalysis) {
-        try {
-          const { data, headers } = await partnerDownload(
-            `/case/${params.cnr}/order/${params.filename}`
-          );
-          const contentDisposition = headers["content-disposition"] || "";
-          const filenameMatch = contentDisposition.match(/filename=([^;]+)/);
-          const downloadFilename = filenameMatch
-            ? filenameMatch[1].trim()
-            : `ecourtsindia-truecopy-${params.cnr}-${params.filename}`;
-          const base64 = Buffer.from(data).toString("base64");
-          content.push({
-            type: "resource",
-            resource: {
-              uri: `order://${params.cnr}/${params.filename}`,
-              mimeType: "application/pdf",
-              blob: base64,
-            },
-          });
-        } catch {
-          // PDF fetch failed — still have the extracted text
-        }
-      }
-
-      return { content };
+      return {
+        content: [
+          {
+            type: "text",
+            text: truncateIfNeeded(md, "The extracted text was long. Ask for a summary or specific section."),
+          },
+        ],
+      };
     })
   );
 
