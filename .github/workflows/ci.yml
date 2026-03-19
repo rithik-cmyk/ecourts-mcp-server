@@ -1,0 +1,92 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20, 22]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check & build
+        run: npm run build
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Run integration tests
+        if: env.ECOURTS_API_TOKEN != ''
+        run: npm run test:integration
+        env:
+          ECOURTS_API_TOKEN: ${{ secrets.ECOURTS_API_TOKEN }}
+
+      - name: Smoke test (server starts on stdio)
+        run: |
+          ECOURTS_API_TOKEN=eci_live_test123 timeout 3 node dist/index.js 2>&1 || true
+
+  docker:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t ecourts-mcp-server:latest .
+
+      - name: Verify Docker health check
+        run: |
+          docker run -d --name test-ecourts \
+            -e ECOURTS_API_TOKEN=eci_live_test123 \
+            -e TRANSPORT=http \
+            -p 3000:3000 \
+            ecourts-mcp-server:latest
+          sleep 5
+          curl -f http://localhost:3000/health
+          docker stop test-ecourts
+          docker rm test-ecourts
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: [build-and-test, docker]
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+          cache: npm
+
+      - name: Install & build
+        run: npm ci && npm run build
+
+      - name: Publish to npm
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

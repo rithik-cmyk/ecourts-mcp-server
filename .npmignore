@@ -1,0 +1,11 @@
+src/
+tests/
+.github/
+.dockerignore
+Dockerfile
+docker-compose.yml
+tsconfig.json
+vitest.config.ts
+vitest.integration.config.ts
+evaluation.xml
+*.map

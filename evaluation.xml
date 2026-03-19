@@ -1,0 +1,61 @@
+<evaluation>
+  <qa_pair>
+    <question>Look up case DLHC010001232024. What is the registration number of the interlocutory application filed by the Petitioner? Respond with just the IA registration number.</question>
+    <answer>IA/100/2024</answer>
+  </qa_pair>
+
+  <qa_pair>
+    <question>For case DLHC010001232024, retrieve the AI analysis of the order filed on 2024-02-01. What is the outcome classification of that order? Respond with the exact outcome value (e.g. PETITIONER_FAVORED, RESPONDENT_FAVORED, MIXED, or DISMISSED).</question>
+    <answer>PETITIONER_FAVORED</answer>
+  </qa_pair>
+
+  <qa_pair>
+    <question>Search for pending civil cases in Delhi High Court (court code DLHC01) filed in 2024 by advocate "Sharma". How many total results does the search return? Respond with just the number.</question>
+    <answer>150</answer>
+  </qa_pair>
+
+  <qa_pair>
+    <question>For case DLHC010001232024, what court was the case in before it reached Delhi High Court? Give the full name of the subordinate/earlier court.</question>
+    <answer>District Court, South Delhi</answer>
+  </qa_pair>
+
+  <qa_pair>
+    <question>Using the court structure endpoints, find the state code whose stateName is "India" (i.e. the Supreme Court). Respond with just the two-letter state code.</question>
+    <answer>SC</answer>
+  </qa_pair>
+
+  <qa_pair>
+    <question>Look up case DLHC010001232024. The case has a connected/tagged matter. What is the case number of that connected matter? Respond with just the case number string.</question>
+    <answer>CS(OS) 124/2024</answer>
+  </qa_pair>
+
+  <qa_pair>
+    <question>For case DLHC010001232024, find the order from 2024-02-01 and retrieve its AI summary. How many key points does the AI analysis list? Respond with just the number.</question>
+    <answer>5</answer>
+  </qa_pair>
+
+  <qa_pair>
+    <question>Search for cases in Delhi High Court with advocate "Sharma". In the search facets returned, how many WRIT type cases appear in the caseType facet? Respond with just the count number.</question>
+    <answer>42</answer>
+  </qa_pair>
+
+  <qa_pair>
+    <question>Look up case DLHC010001232024. What type of notice was issued to XYZ Corporation, and on what date was it issued? Respond in the format "TYPE on YYYY-MM-DD".</question>
+    <answer>SUMMONS on 2024-01-22</answer>
+  </qa_pair>
+
+  <qa_pair>
+    <question>For case DLHC010001232024, the AI case analysis identifies a complexity level and key issues. What is the complexity level? Respond with just the complexity value (e.g. LOW, MEDIUM, HIGH).</question>
+    <answer>MEDIUM</answer>
+  </qa_pair>
+
+  <qa_pair>
+    <question>Use the case lookup tool to find case "CS(OS) 123/2024" in Delhi High Court (court code DLHC01). What is the CNR of this case? Respond with just the CNR string.</question>
+    <answer>DLHC010001232024</answer>
+  </qa_pair>
+
+  <qa_pair>
+    <question>Look up case DLHC010001232024. The case detail includes a list of available order files with AI analysis status. For the order file "order-2024-02-01.pdf", does AI analysis exist? Respond with just "yes" or "no".</question>
+    <answer>yes</answer>
+  </qa_pair>
+</evaluation>

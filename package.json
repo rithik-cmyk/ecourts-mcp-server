@@ -1,0 +1,65 @@
+{
+  "name": "ecourts-mcp-server",
+  "version": "1.2.0",
+  "description": "MCP server for EcourtsIndia Partner API – search Indian court cases, retrieve orders, cause lists, and AI summaries",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "bin": {
+    "ecourts-mcp-server": "dist/index.js"
+  },
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "dist/**/*.d.ts.map",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "test:integration": "vitest run --config vitest.integration.config.ts",
+    "test:all": "npm run test && npm run test:integration",
+    "prepublishOnly": "npm run build && npm run test"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ecourts",
+    "india",
+    "courts",
+    "legal",
+    "case-search",
+    "cause-list",
+    "llm",
+    "ai",
+    "anthropic",
+    "claude"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ecourtsindia/ecourts-mcp-server.git"
+  },
+  "homepage": "https://github.com/ecourtsindia/ecourts-mcp-server#readme",
+  "bugs": {
+    "url": "https://github.com/ecourtsindia/ecourts-mcp-server/issues"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "axios": "^1.7.9",
+    "express": "^4.21.2",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.15.2",
+    "typescript": "^5.7.3",
+    "vitest": "^4.1.0"
+  }
+}
