@@ -250,13 +250,13 @@ export function formatOrderAiMarkdown(
       `**Judge:** ${ai.judge} | **Date:** ${ai.orderDate}`,
       "",
       "**Key Points:**",
-      ...ai.keyPoints.map((k) => `- ${k}`),
+      ...(ai.keyPoints ?? []).map((k) => `- ${k}`),
       "",
       "**Relief Granted:**",
-      ...ai.reliefGranted.map((r) => `- ${r}`),
+      ...(ai.reliefGranted ?? []).map((r) => `- ${r}`),
       "",
       `**Legal Provisions:** ${ai.legalProvisions?.join("; ") || "N/A"}`,
-      `**Next Steps:** ${ai.nextSteps}`,
+      `**Next Steps:** ${ai.nextSteps || "N/A"}`,
       ""
     );
   } else {
