@@ -410,8 +410,9 @@ describe("formatOrderAiMarkdown", () => {
 
   it("shows fallback message when AI is null", () => {
     const md = formatOrderAiMarkdown("CNR123", "order.pdf", "full text...", null);
-    expect(md).toContain("AI analysis not yet available");
-    expect(md).not.toContain("## AI Analysis");
+    expect(md).toContain("AI analysis is not yet available");
+    expect(md).toContain("## AI Analysis");
+    expect(md).toContain("ecourts_refresh_case");
   });
 
   it("always includes extracted text", () => {

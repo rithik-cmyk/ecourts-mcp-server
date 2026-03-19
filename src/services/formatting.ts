@@ -260,7 +260,13 @@ export function formatOrderAiMarkdown(
       ""
     );
   } else {
-    lines.push("_AI analysis not yet available for this order._", "");
+    lines.push(
+      "## AI Analysis",
+      "_AI analysis is not yet available for this order. The order PDF has been included below._",
+      "",
+      "**Tip:** You can call `ecourts_refresh_case` with this CNR to request a fresh data scrape, then retry after 5\u201310 minutes.",
+      ""
+    );
   }
 
   lines.push("## Extracted Text", "", extractedText);
